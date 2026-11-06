@@ -1,13 +1,12 @@
 """Store vectors and search them by cosine similarity."""
 import numpy as np
-
+from embedder import embed
 
 def cosine_similarity(a: np.ndarray, b: np.ndarray) -> float:
     """Cosine similarity between two vectors. Range: -1 (opposite) to 1 (identical)."""
     return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
 if __name__ == "__main__":
-    from embedder import embed
 
     sentences = [
         "The dog chased the cat",
