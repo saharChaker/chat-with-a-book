@@ -1,5 +1,6 @@
 venv/
 __pycache__/
 book/
-*.pyc
 .env
+*.pyc
+vectors.npy
