@@ -65,7 +65,7 @@ python src/main.py
 | `src/rag.py` | Retrieve → Augment → Generate: builds the prompt and calls llama3.2 |
 | `src/main.py` | Interactive chat loop |
 
-## What I learned (the honest version)
+## What I learned
 
 - **Embeddings turn meaning into geometry.** "Dog chased cat" and "puppies and
   kittens playing" score 0.64 cosine similarity; "quantum entanglement" scores 0.33
