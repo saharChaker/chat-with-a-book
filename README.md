@@ -7,9 +7,7 @@ not by calling `vectorstore.similarity_search()` from a library, but by writing 
 
 ## Demo
 
-&lt;!-- Take a screenshot of `python src/main.py` answering a question, then drag it
-     into this file while editing on GitHub. Delete this comment after. --&gt;
-![Demo screenshot](images/demo.png)
+<img width="680" height="183" alt="demo" src="https://github.com/user-attachments/assets/4e7504b5-eb06-4232-a1d5-105394179546" />
 
 ## How it works
 
