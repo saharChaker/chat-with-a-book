@@ -13,27 +13,16 @@ not by calling `vectorstore.similarity_search()` from a library, but by writing 
 
 ## How it works
 
-```
-┌──────────┐   ┌──────────┐   ┌─────────────┐   ┌────────────────┐
-│ book.pdf │──▶│ chunker  │──▶│  embedder   │──▶│  vector store  │
-│ (raw)    │   │ 910 chun-│   │ nomic-embed │   │ numpy + cosine │
-│          │   │ ks, 500ch│   │ -text       │   │ similarity     │
-└──────────┘   └──────────┘   └─────────────┘   └────────────────┘
-                                    (one-time, saved to vectors.npy)
-                                                          │
-   ┌──────────┐   ┌──────────┐                     ┌──────▼───────┐
-   │  You ask │──▶│ embed    │────────────────────▶│ top-k chunks │
-   │ question │   │ question │                     │ by similarity│
-   └──────────┘   └──────────┘                     └──────┬───────┘
-                                                          │
-                                                   ┌──────▼──────────────┐
-                                                   │ llama3.2 prompt:    │
-                                                   │ context + question  │
-                                                   └──────┬──────────────┘
-                                                          │
-                                                   ┌──────▼───────┐
-                                                   │    Answer    │
-                                                   └──────────────┘
+```mermaid
+flowchart LR
+    A["book.pdf"] --> B["chunker<br/>910 chunks × 500 chars"]
+    B --> C["embedder<br/>nomic-embed-text"]
+    C --> D[("vector store<br/>numpy + cosine similarity<br/>saved once to vectors.npy")]
+    Q["Your question"] --> E["embed question"]
+    E --> D
+    D --> F["top-k chunks<br/>by similarity"]
+    F --> G["llama3.2 prompt<br/>context + question"]
+    G --> H["Answer"]
 ```
 
 1. **Chunk** — the book is split into ~500-character chunks with 50-character overlap,

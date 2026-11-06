@@ -18,7 +18,7 @@ Question: {question}
 Answer:"""
 
 
-def answer_question(store: VectorStore, question: str, k: int = 4) -> str:
+def answer_question(store: VectorStore, question: str, k: int = 6) -> str:
     """Retrieve top-k chunks, stuff them into a prompt, and ask the LLM."""
     # 1. RETRIEVE (the R in RAG) — find relevant passages
     results = store.search(question, k=k)
