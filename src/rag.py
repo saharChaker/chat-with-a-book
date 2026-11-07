@@ -1,9 +1,9 @@
 """The RAG pipeline: retrieve relevant chunks, then generate an answer."""
 import ollama
-from embedder import embed
-from load_book import load_book
-from chunker import chunk_text
-from vector_store import VectorStore
+from src.embedder import embed
+from src.load_book import load_book
+from src.chunker import chunk_text
+from src.vector_store import VectorStore
 
 LLM_MODEL = "llama3.2"
 

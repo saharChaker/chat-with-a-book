@@ -1,6 +1,10 @@
 """Load a book file and return its full text as a string."""
+import logging
+
+import numpy as np  # (if not already needed, skip)
 from pypdf import PdfReader
 
+logging.getLogger("pypdf").setLevel(logging.ERROR)  # silence noisy warnings
 
 def load_book(path: str) -> str:
     """Read a PDF file and return all its text as one string."""

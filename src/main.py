@@ -1,8 +1,8 @@
 """Chat with the book: ask questions in a loop until you type 'quit'."""
-from load_book import load_book
-from chunker import chunk_text
-from vector_store import VectorStore
-from rag import answer_question
+from src.load_book import load_book
+from src.chunker import chunk_text
+from src.vector_store import VectorStore
+from src.rag import answer_question
 
 
 def main() -> None:

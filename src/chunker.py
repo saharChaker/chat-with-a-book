@@ -14,7 +14,7 @@ def chunk_text(text: str, size: int = 500, overlap: int = 50) -> list[str]:
 
 
 if __name__ == "__main__":
-    from load_book import load_book  # import from the sibling file
+    from src.load_book import load_book  
 
     text = load_book("book/frankenstein.pdf")
     chunks = chunk_text(text)

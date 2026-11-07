@@ -1,6 +1,6 @@
 """Store vectors and search them by cosine similarity."""
 import numpy as np
-from embedder import embed
+from src.embedder import embed       
 
 def cosine_similarity(a: np.ndarray, b: np.ndarray) -> float:
     """Cosine similarity between two vectors. Range: -1 (opposite) to 1 (identical)."""
@@ -34,9 +34,14 @@ class VectorStore:
         print("Saved to vectors.npy")
 
     def load(self, chunks: list[str]) -> None:
-        """Load pre-computed vectors from disk (fast)."""
         self.chunks = chunks
         self.vectors = np.load("vectors.npy")
+        if len(self.chunks) != len(self.vectors):
+            raise ValueError(
+                f"Index mismatch: {len(self.chunks)} chunks but "
+                f"{len(self.vectors)} vectors. The chunker changed since the "
+                f"index was built — rerun the build."
+        )
 
     def search(self, query: str, k: int = 3) -> list[tuple[str, float]]:
         """Find the k chunks most similar to the query."""
@@ -47,16 +52,10 @@ class VectorStore:
         return [(self.chunks[i], float(scores[i])) for i in top_k]
     
 if __name__ == "__main__":
-    from load_book import load_book
-    from chunker import chunk_text
+    from src.load_book import load_book
+    from src.chunker import chunk_text
 
     chunks = chunk_text(load_book("book/frankenstein.pdf"))
     store = VectorStore()
-    store.load(chunks)
-
-    question = "Who is the monster's creator?"
-    results = store.search(question, k=3)
-
-    for i, (chunk, score) in enumerate(results, 1):
-        print(f"\n--- Result {i} (score: {score:.3f}) ---")
-        print(chunk[:300])
+    store.build(chunks)   # embeds + saves; run ONCE
+    #store.load(chunks)  # use this on later runs
